@@ -1,3 +1,4 @@
 # go-projects
 
-First commit for hello world
+Solutions to the go course at 
+https://www.codecademy.com/
