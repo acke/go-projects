@@ -12,7 +12,6 @@ func main() {
 		fmt.Println("Be patient...")
 	}
 
-
 	enoughRobbers := false
 	enoughBags := true
 
@@ -22,4 +21,3 @@ func main() {
 		fmt.Println("Grab whatever you can!")
 	}
 }
-

@@ -11,8 +11,8 @@ type Student struct {
 
 func main() {
 	peter := Student{"Peter", "Bookman", 16, 11}
-  fmt.Println(peter)
+	fmt.Println(peter)
 
-  scott := Student{firstName:"Scott", lastName:"Peterson", grade:12}
-  fmt.Println(scott)
+	scott := Student{firstName: "Scott", lastName: "Peterson", grade: 12}
+	fmt.Println(scott)
 }
