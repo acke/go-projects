@@ -35,21 +35,22 @@ func ParseCard(card string) int {
 // player and one card of the dealer.
 func FirstTurn(card1, card2, dealerCard string) string {
 	playerCardValue := ParseCard(card1) + ParseCard(card2)
+	dealerCardValue := ParseCard(dealerCard)
 
 	switch {
 	case card1 == "ace" && card2 == "ace":
 		return "P"
-	case playerCardValue == 21 && ParseCard(dealerCard) < 10:
+	case playerCardValue == 21 && dealerCardValue < 10:
 		return "W"
-	case playerCardValue > 19 && ParseCard(dealerCard) > 9:
+	case playerCardValue > 19 && dealerCardValue > 9:
 		return "S"
 	case playerCardValue < 20 && playerCardValue > 16:
 		return "S"
 	case playerCardValue < 12:
 		return "H"
-	case playerCardValue > 11 && playerCardValue < 17 && ParseCard(dealerCard) < 7:
+	case playerCardValue > 11 && playerCardValue < 17 && dealerCardValue < 7:
 		return "S"
-	case playerCardValue > 11 && playerCardValue < 17 && ParseCard(dealerCard) > 7:
+	case playerCardValue > 11 && playerCardValue < 17 && dealerCardValue > 7:
 		return "H"
 	default:
 		return "H"
