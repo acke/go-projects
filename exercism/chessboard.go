@@ -11,13 +11,13 @@ type Chessboard map [string] File
 // within the given file.
 func CountInFile(cb Chessboard, file string) int {
 	numberOfOccupiedSquares := 0
-    
+
     for _, squareOccupied := range cb[file] {
         if squareOccupied {
             numberOfOccupiedSquares++
         }
     }
-	
+
     return numberOfOccupiedSquares
 }
 
@@ -46,7 +46,7 @@ func CountAll(cb Chessboard) int {
     for _, f := range cb {
         numberOfSquaresOnBoard += len(f)
     }
-    
+
     return numberOfSquaresOnBoard
 }
 
@@ -57,11 +57,11 @@ func CountOccupied(cb Chessboard) int {
     for _, file := range cb {
         for _, square := range file {
             if square {
-                totalOccupied++                
+                totalOccupied++
             }
         }
     }
-	
+
     return totalOccupied
 }
 
