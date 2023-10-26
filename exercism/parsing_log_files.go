@@ -6,23 +6,14 @@ import (
 
 
 func IsValidLine(text string) bool {
-	prepend_string := []string {"[TRC]", "[DBG]", "[INF]", "[WRN]", "[ERR]", "[FTL]"}
+	re, err := regexp.Compile(`^\[(TRC|DBG|INF|WARN|ERR|FTL)\]`)
 
-    valid_line := false
+    if err != nil { return false }
 
-    if len(text) < 5 {
-        return valid_line
-    }
-
-    for _, str := range prepend_string {
-        if str == text[:5]  {
-            valid_line = true
-        }
-	}
-
-	return valid_line
+	return re.MatchString(text)
 }
 
+//In regexp * is 0 or more, + is 1 or more.
 func SplitLogLine(text string) []string {
 
     re, err := regexp.Compile(`[<][-=\*~>]*[>]`)
@@ -32,11 +23,12 @@ func SplitLogLine(text string) []string {
     return re.Split(text, -1)
 }
 
+//In regexp (?i) makes expression case-insensitive
 func CountQuotedPasswords(lines []string) int {
-	re, err := regexp.Compile(`\".*(?i)password.*\"`)
+	re, err := regexp.Compile(`(?i)".*password.*"`)
 	counter := 0
 
-     if err != nil { return 0 }
+    if err != nil { return 0 }
 
     for _, line := range lines {
         if re.MatchString(line) {
@@ -48,29 +40,29 @@ func CountQuotedPasswords(lines []string) int {
     return counter
 }
 
+//In regexp \d replaces 0-9, any number
 func RemoveEndOfLineText(text string) string {
-	re, err := regexp.Compile(`end-of-line[0-9]*`)
+	re, err := regexp.Compile(`end-of-line\d*`)
 
     if err != nil { return "" }
 
     return re.ReplaceAllString(text, "")
 }
 
+//In regexp \w replaces [a-zA-Z0-9]
 func TagWithUserName(lines []string) []string {
 
-	re, err := regexp.Compile(`User\s+[a-zA-Z0-9]+`)
+    re, err := regexp.Compile(`User\s+[\w]+`)
     if err != nil { return nil }
 
     regexp_replace, err := regexp.Compile(`User\s+`)
 	if err != nil { return nil }
-
 
 	for i, line := range lines {
         submatch := re.FindStringSubmatch(line)
 
         if len(submatch) > 0 {
             newline := regexp_replace.ReplaceAllString(submatch[0], "[USR] ")
-
             lines[i] = newline + " " + line
         }
     }
