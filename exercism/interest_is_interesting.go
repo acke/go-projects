@@ -2,20 +2,16 @@ package interest
 
 // InterestRate returns the interest rate for the provided balance.
 func InterestRate(balance float64) float32 {
-    var interest float32
-
     switch {
         case balance < 0:
-          interest = 3.213
+          return 3.213
         case balance < 1000:
-          interest = 0.5
+          return 0.5
         case balance < 5000:
-          interest = 1.621
+          return 1.621
         default:
-          interest = 2.475
+          return 2.475
     }
-
-    return float32(interest)
 }
 
 // Interest calculates the interest for the provided balance.
