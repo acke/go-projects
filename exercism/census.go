@@ -36,6 +36,6 @@ func Count(residents []*Resident) int {
         }
     }
 
-	return counter
+    return counter
 }
 
