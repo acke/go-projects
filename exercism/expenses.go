@@ -4,15 +4,15 @@ import "errors"
 
 // Record represents an expense record.
 type Record struct {
-	Day      int
-	Amount   float64
-	Category string
+    Day      int
+    Amount   float64
+    Category string
 }
 
 // DaysPeriod represents a period of days for expenses.
 type DaysPeriod struct {
-	From int
-	To   int
+    From int
+    To   int
 }
 
 // Filter returns the records for which the predicate function returns true.
