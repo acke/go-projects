@@ -25,21 +25,21 @@ func Encode(message string, rails int) string {
                     continue
                 }
                 rail++
-        	case rail < rails && !movingDown:
+            case rail < rails && !movingDown:
                 rail--
         }
     }
 
-	var result string
-	for _, slice := range fence {
-		result += slice
-	}
-	return result
+    var result string
+    for _, slice := range fence {
+        result += slice
+    }
+    return result
 }
 
 
 
 func Decode(message string, rails int) string {
-	panic("Please implement the Decode function")
+    panic("Please implement the Decode function")
 }
 
