@@ -1,9 +1,9 @@
 package main
 
 import (
+    "fmt"
     "regexp"
     "strconv"
-    "fmt"
 )
 
 
@@ -11,46 +11,73 @@ import (
 func main() {
 
     var counter int
+
     lines := GetInput()
 
+    for i, line := range lines {
+        fmt.Print(i)
+        fmt.Println(" -----------------------------------------------------")
+        fmt.Println(line)
 
-    for _, line := range lines {
-        fmt.Println("-----------------------------------------------------")
-        fmt.Println(string(line))
-        values := ExtractNumbers(string(line))
-        fmt.Println(values)
+        first := FindNumbers(line, true)
+        last:= FindNumbers(line, false)
 
-        if len(values) > 0 {
-            fmt.Println(values[0], values[len(values)-1])
-            AddToCounter(values[0], values[len(values)-1], &counter)
-        }
+        first = ConvertToNumerals(first)
+        last = ConvertToNumerals(last)
+
+        AddToCounter(first, last, &counter)
     }
 
+    fmt.Println(counter)
 }
 
-func ExtractNumbers (line string) []string{
+func FindNumbers(line string, firstNumber bool) string {
 
-    re, _ := regexp.Compile(`(\d)`)
-    return re.FindAllString(line, -1)
+    re := regexp.MustCompile(`(\d|one|two|three|four|five|six|seven|eight|nine)`)
+
+    if !firstNumber {
+        re := regexp.MustCompile(`(\d|oneight|eightwo|twone|one|two|three|four|five|six|seven|eight|nine)`)
+    }
+
+    fmt.Println(re.FindAllString(line, -1))
+
+    numbers := re.FindAllString(line, -1)
+
+    if firstNumber {
+        return numbers[0]
+    }
+
+    return numbers[len(numbers)-1]
+}
+
+func ConvertToNumerals (number string)  string{
+
+    switch number {
+        case "one": return "1"
+        case "two": return "2"
+        case "three": return "3"
+        case "four": return "4"
+        case "five": return "5"
+        case "six": return "6"
+        case "seven": return "7"
+        case "eight": return "8"
+        case "nine": return "9"
+        case "oneight": return "8"
+        case "twone": return "1"
+        case "eightwo": return "2"
+    }
+
+    return number
 
 }
 
 func AddToCounter (firstNumber string, secondNumber string, counter *int ) {
 
-    i, err := strconv.Atoi(firstNumber)
-    if err != nil {
-        panic(err)
-    }
-
-    j, err := strconv.Atoi(secondNumber)
-    if err != nil {
-        panic(err)
-    }
+    i, _ := strconv.Atoi(firstNumber)
+    j, _ := strconv.Atoi(secondNumber)
 
     *counter = *counter + ( i*10 ) + j
-    fmt.Println(counter)
 }
-
 
 func GetInput () (lines []string){
 
