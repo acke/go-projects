@@ -12,7 +12,7 @@ func AddBorder(welcomeMsg string, numStarsPerLine int) string {
     var stars string
 
     for x := 0; x < numStarsPerLine; x++ {
-        stars = stars + "*"
+        stars += "*"
     }
 
     return stars + "\n" + welcomeMsg + "\n" + stars
